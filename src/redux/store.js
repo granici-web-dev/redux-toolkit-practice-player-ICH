@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-// import { userReducer } from 'react';
+import { configureStore } from '@reduxjs/toolkit';
+import playerReducer from './slices/playerSlice';
 
 export default configureStore({
-  retucer: {
-    // user: userReducer,
+  reducer: {
+    player: playerReducer,
   },
 });
