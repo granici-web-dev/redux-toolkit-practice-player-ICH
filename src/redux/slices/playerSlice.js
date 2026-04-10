@@ -28,16 +28,49 @@ const playerSlice = createSlice({
       }
     },
     changeVolume: (state, action) => {
-      if (action.payload < 0) {
-        state.volume = 0
-      } else if (action.payload > 100) {
-        state.volume = 100
+      const newVolume = Math.min(Math.max(action.payload, 0), 100);
+
+      if (newVolume === 0) {
+        state.previousVolume = state.volume > 0 ? state.volume : state.previousVolume;
+        state.volume = 0;
+        state.isMuted = true;
       } else {
-        state.volume = action.payload
+        state.volume = newVolume;
+        state.isMuted = false;
+      }
+    },
+    toggleMute: (state) => {
+      if (!state.isMuted) {
+        state.previousVolume = state.volume;
+        state.volume = 0;
+        state.isMuted = true;
+      } else {
+        state.volume = state.previousVolume;
+        state.isMuted = false;
+      }
+    },
+    nextRepeatMode: (state) => {
+      switch (state.repeatMode) {
+        case 'none':
+          state.repeatMode = 'one';
+          break;
+        case 'one':
+          state.repeatMode = 'all';
+          break;
+        case 'all':
+          state.repeatMode = 'none';
+          break;
+      }
+    },
+    setPlaybackRate: (state, action) => {
+      const allowed = [0.5, 0.75, 1.0, 1.25, 1.5];
+      if (allowed.includes(action.payload)) {
+        state.playbackRate = action.payload;
       }
     },
   },
 });
 
-export const { playPause, setTime, changeVolume } = playerSlice.actions;
+export const { playPause, setTime, changeVolume, toggleMute, nextRepeatMode, setPlaybackRate } =
+  playerSlice.actions;
 export default playerSlice.reducer;
