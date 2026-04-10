@@ -46,7 +46,7 @@ function App() {
           />
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: '24px', alignItems: 'center', justifyContent: 'space-between' }}>
         <Button onClick={() => dispatch(nextRepeatMode())}>
           <RetweetOutlined />
           {repeatLabels[repeatMode]}
