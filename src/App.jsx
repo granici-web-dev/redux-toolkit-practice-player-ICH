@@ -7,6 +7,8 @@ import {
   toggleMute,
   nextRepeatMode,
   setPlaybackRate,
+  seekForward,
+  seekBackward,
 } from './redux/slices/playerSlice';
 import { Button, Slider, Select } from 'antd';
 import {
@@ -14,6 +16,8 @@ import {
   PauseCircleTwoTone,
   SoundTwoTone,
   RetweetOutlined,
+  LeftCircleTwoTone,
+  RightCircleTwoTone,
 } from '@ant-design/icons';
 
 const repeatLabels = {
@@ -30,7 +34,7 @@ function App() {
   );
 
   return (
-    <div style={{ maxWidth: '600px', textAlign: 'center' }}>
+    <div style={{ maxWidth: '800px', textAlign: 'center' }}>
       <h1>Player</h1>
       <div style={{ display: 'flex', gap: '32px' }}>
         <div style={{ width: '100%' }}>
@@ -51,8 +55,22 @@ function App() {
           style={{ width: 64, height: 64, fontSize: 28 }}
           shape="circle"
           size="large"
+          onClick={() => dispatch(seekBackward(10))}
+          icon={<LeftCircleTwoTone />}
+        />
+        <Button
+          style={{ width: 64, height: 64, fontSize: 28 }}
+          shape="circle"
+          size="large"
           onClick={() => dispatch(playPause())}
           icon={isPlaying ? <PauseCircleTwoTone /> : <PlayCircleTwoTone />}
+        />
+        <Button
+          style={{ width: 64, height: 64, fontSize: 28 }}
+          shape="circle"
+          size="large"
+          onClick={() => dispatch(seekForward(10))}
+          icon={<RightCircleTwoTone />}
         />
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>

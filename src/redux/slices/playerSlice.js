@@ -68,9 +68,23 @@ const playerSlice = createSlice({
         state.playbackRate = action.payload;
       }
     },
+    seekForward: (state, action) => {
+      state.currentTime = Math.min(state.currentTime + action.payload, state.maxTime);
+    },
+    seekBackward: (state, action) => {
+      state.currentTime = Math.max(state.currentTime - action.payload, 0);
+    },
   },
 });
 
-export const { playPause, setTime, changeVolume, toggleMute, nextRepeatMode, setPlaybackRate } =
-  playerSlice.actions;
+export const {
+  playPause,
+  setTime,
+  changeVolume,
+  toggleMute,
+  nextRepeatMode,
+  setPlaybackRate,
+  seekForward,
+  seekBackward,
+} = playerSlice.actions;
 export default playerSlice.reducer;
